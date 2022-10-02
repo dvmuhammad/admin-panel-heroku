@@ -61,22 +61,26 @@ public class EventService:IEventService
         return even;
     }
 
-    public async Task<Domain.Entities.Event?> UpdateById(int id, EventCreationRequest request)
+    public async Task<Domain.Entities.Event?> UpdateById(int id, EventUpdateRequest request)
     {
-        var even = await _context.Events.FirstOrDefaultAsync(x => x.Id == id);
+        var eventItem = await _context.Events.FirstOrDefaultAsync(x => x.Id == id);
         
-        if (even == null)
+        if (eventItem == null)
             throw new Exception();
         var file1Path = await SaveFile(request.File1, request.File1?.Name);
         var file2Path = await SaveFile(request.File2, request.File2?.Name);
         var file3Path = await SaveFile(request.File3, request.File3?.Name);
-        even.Title = request.Title;
-        even.Year = request.Year;
-        even.Description = request.Description;
-        even.PathIMG1 = file1Path;
-        even.PathIMG2 = file2Path;
-        even.PathIMG3 = file3Path;
-
-        return even;
+        eventItem.Title = request.Title;
+        eventItem.Year = request.Year;
+        eventItem.Description = request.Description;
+        if (file1Path is not null)
+            eventItem.PathIMG1 = file1Path;
+        if (file2Path is not null)
+            eventItem.PathIMG2 = file2Path;
+        if (file3Path is not null)
+            eventItem.PathIMG3 = file3Path;
+        
+        await _context.SaveChangesAsync();
+        return eventItem;
     }
 }

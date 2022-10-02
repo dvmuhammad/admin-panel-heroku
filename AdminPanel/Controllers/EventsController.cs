@@ -27,7 +27,7 @@ public class EventsController : ControllerBase
         return Ok(await _service.GetAllEvent());
     }
     [HttpPut("event/update/{id:int}")]
-    public async Task<IActionResult> Update(int id, [FromForm]EventCreationRequest request)
+    public async Task<IActionResult> Update(int id, [FromForm]EventUpdateRequest request)
     {
         var result = await _service.UpdateById(id,request);
         return Ok(result);

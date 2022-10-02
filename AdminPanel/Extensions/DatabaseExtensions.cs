@@ -10,7 +10,7 @@ public static class DatabaseExtensions
         var environmentConnectionString = Environment.GetEnvironmentVariable("connectionString");
         services.AddDbContext<DataContext>(options =>
             options.UseNpgsql(environmentConnectionString ??
-                                                      "Server=ec2-44-207-253-50.compute-1.amazonaws.com;Port=5432;Userid=pnjelfrrvyopaa;Password=2767213fcefaa69499fe846df7535ef5421431e678d449a8165e80b45a9f31ac;Database=d8c75prrfnedph"));
+                                                      "Server=dpg-ccslhoun6mptlbr1uv90-a;Port=5432;Userid=iftikhor;Password=imqmgXl1k8EhcuZwpvzcmnXbpfjXEdkR;Database=dbnimbus"));
         return services;
     }
 }
